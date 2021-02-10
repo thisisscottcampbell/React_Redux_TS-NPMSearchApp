@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { ActionTypes, ActionType } from '../action-types';
+import { Dispatch } from 'redux';
+import { ActionType } from '../action-types';
 import { Action } from '../actions';
 
-const searchPacks = (term: string) => {
-	return async (dispatch: any) => {
+export const searchPacks = (term: string) => {
+	return async (dispatch: Dispatch<Action>) => {
 		dispatch({
 			type: ActionType.SEARCH_PACKS,
 		});
@@ -18,7 +19,12 @@ const searchPacks = (term: string) => {
 				}
 			);
 
-			const names = data.objects.map((result) => result.package.name);
+			const packages = data.objects.map((result) => result.package.name);
+
+			dispatch({
+				type: ActionType.SEARCH_SUCCESS,
+				payload: packages,
+			});
 		} catch (err) {
 			dispatch({
 				type: ActionType.SEARCH_ERROR,
