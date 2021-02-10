@@ -4,11 +4,6 @@ interface PackState {
 	data: string[];
 }
 
-interface Action {
-	type: string;
-	payload?: any;
-}
-
 interface SearchPacks {
 	type: 'search_packs';
 }
@@ -23,16 +18,26 @@ interface SearchError {
 	payload: string;
 }
 
+type Action = SearchPacks | SearchError | SearchSuccess;
+
+enum ActionType {
+	SEARCH_PACKS = 'search_packs',
+	SEARCH_SUCCESS = 'search_success',
+	SEARCH_ERROR = 'search_error',
+}
+
 const packReducer = (state: PackState, action: Action): PackState => {
 	switch (action.type) {
-		case 'search_packs':
+		case ActionType.SEARCH_PACKS:
 			return { loading: true, error: null, data: [] };
-		case 'search_success':
+		case ActionType.SEARCH_SUCCESS:
 			return { loading: false, error: null, data: action.payload };
-		case 'search_error':
+		case ActionType.SEARCH_ERROR:
 			return { loading: false, error: action.payload, data: [] };
 
 		default:
 			return state;
 	}
 };
+
+export default packReducer;
