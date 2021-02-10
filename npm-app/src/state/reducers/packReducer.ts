@@ -9,6 +9,20 @@ interface Action {
 	payload?: any;
 }
 
+interface SearchPacks {
+	type: 'search_packs';
+}
+
+interface SearchSuccess {
+	type: 'search_success';
+	payload: string[];
+}
+
+interface SearchError {
+	type: 'search_error';
+	payload: string;
+}
+
 const packReducer = (state: PackState, action: Action): PackState => {
 	switch (action.type) {
 		case 'search_packs':
