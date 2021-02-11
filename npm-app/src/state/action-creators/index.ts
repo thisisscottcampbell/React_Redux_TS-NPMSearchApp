@@ -19,7 +19,7 @@ export const searchPacks = (term: string) => {
 				}
 			);
 
-			const packages = data.objects.map((result) => result.package.name);
+			const packages = data.objects.map((result: any) => result.package.name);
 
 			dispatch({
 				type: ActionType.SEARCH_SUCCESS,

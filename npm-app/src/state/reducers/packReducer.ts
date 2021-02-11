@@ -7,7 +7,16 @@ interface PackState {
 	data: string[];
 }
 
-const packReducer = (state: PackState, action: Action): PackState => {
+const initState = {
+	loading: false,
+	error: null,
+	data: [],
+};
+
+const packReducer = (
+	state: PackState = initState,
+	action: Action
+): PackState => {
 	switch (action.type) {
 		case ActionType.SEARCH_PACKS:
 			return { loading: true, error: null, data: [] };
